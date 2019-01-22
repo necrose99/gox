@@ -89,6 +89,11 @@ var (
 	Platforms_1_8 = append(Platforms_1_7, []Platform{
 		{"linux", "mips", true},
 		{"linux", "mipsle", true},
+		{"linux", "arm64", true},
+		//{"windows", "arm", true},  //not yet 
+		//{"windows", "arm64", true}, //wont yet cross compile on my linux i'll try on windows then push to 
+		// iot rockpro64 stick , however HP-envy laptop is full blown arm64 windows.. azure might be o use.
+
 	}...)
 
 	// no new platforms in 1.9
