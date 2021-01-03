@@ -26,7 +26,7 @@ func realMain() int {
 	var platformFlag PlatformFlag
 	var tags string
 	var verbose bool
-	var flagGcflags, flagAsmflags string
+	var flagGcflags, flagAsmflags, flagBuildmode string
 	var flagCgo, flagRebuild, flagTrimPath, flagListOSArch bool
 	var flagGoCmd string
 	var modMode string
