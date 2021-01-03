@@ -46,6 +46,7 @@ func realMain() int {
 	flags.BoolVar(&flagRebuild, "rebuild", false, "")
 	flags.BoolVar(&flagTrimPath, "trimpath", false, "")
 	flags.BoolVar(&flagListOSArch, "osarch-list", false, "")
+	flags.StringVar(&flagBuildmode, "buildmode", "", "")
 	flags.StringVar(&flagGcflags, "gcflags", "", "")
 	flags.StringVar(&flagAsmflags, "asmflags", "", "")
 	flags.StringVar(&flagGoCmd, "gocmd", "go", "")
