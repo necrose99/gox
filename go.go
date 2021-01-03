@@ -38,6 +38,7 @@ type CompileOpts struct {
 	Buildmode   string
 	TrimPath    bool
 	GoCmd       string
+
 }
 
 // GoCrossCompile
@@ -60,9 +61,11 @@ func GoCrossCompile(opts *CompileOpts) error {
 			runtime.GOARCH == opts.Platform.Arch
 	}
 
-	// If cgo is enabled then set that env var
+		// If cgo is enabled then set that env var
 	if opts.Cgo {
 		env = append(env, "CGO_ENABLED=1")
+		if opts.CCrossCompiler != "" {
+			env = append(env, "CC="+opts.CCrossCompiler)
 	} else {
 		env = append(env, "CGO_ENABLED=0")
 	}
