@@ -110,7 +110,19 @@ var (
 	// no new platforms in 1.10
 	Platforms_1_10 = Platforms_1_9
 
-	PlatformsLatest = Platforms_1_10
+	Platforms_1_11 = append(Platforms_1_10, []Platform{
+		{"js", "wasm", true},
+		// Not sure arm64 was ported in 1.11 maybe before!
+		{"linux", "arm64", true},
+	}...)
+
+	Platforms_1_12 = append(Platforms_1_11, []Platform{
+		{"linux", "ppc64", true},
+		{"windows", "arm", true},
+		{"aix", "ppc64", true},
+	}...)
+
+	PlatformsLatest = Platforms_1_12
 )
 
 // SupportedPlatforms returns the full list of supported platforms for
@@ -145,6 +157,8 @@ func SupportedPlatforms(v string) []Platform {
 		{">= 1.8, < 1.9", Platforms_1_8},
 		{">= 1.9, < 1.10", Platforms_1_9},
 		{">=1.10, < 1.11", Platforms_1_10},
+		{">=1.11, < 1.12", Platforms_1_11},
+		{">=1.12, < 1.13", Platforms_1_12},
 	}
 
 	for _, p := range platforms {
@@ -158,5 +172,5 @@ func SupportedPlatforms(v string) []Platform {
 	}
 
 	// Assume latest
-	return Platforms_1_9
+	return Platforms_1_12
 }
