@@ -35,6 +35,7 @@ type CompileOpts struct {
 	ModMode     string
 	Cgo         bool
 	Rebuild     bool
+	Buildmode   string
 	TrimPath    bool
 	GoCmd       string
 }
