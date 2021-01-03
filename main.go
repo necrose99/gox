@@ -29,6 +29,7 @@ func realMain() int {
 	var flagGcflags, flagAsmflags, flagBuildmode string
 	var flagCgo, flagRebuild, flagTrimPath, flagListOSArch bool
 	var flagGoCmd string
+	var cCrossCompilerFlag CCrossCompilerFlag
 	var modMode string
 	flags := flag.NewFlagSet("gox", flag.ExitOnError)
 	flags.Usage = func() { printUsage() }
@@ -50,6 +51,7 @@ func realMain() int {
 	flags.StringVar(&flagGcflags, "gcflags", "", "")
 	flags.StringVar(&flagAsmflags, "asmflags", "", "")
 	flags.StringVar(&flagGoCmd, "gocmd", "go", "")
+	flags.Var(&cCrossCompilerFlag, "c-cross-compilers", "C cross-compilers to use for platforms")	
 	flags.StringVar(&modMode, "mod", "", "")
 	if err := flags.Parse(os.Args[1:]); err != nil {
 		flags.Usage()
@@ -117,7 +119,20 @@ func realMain() int {
 		fmt.Println("using a valid value.")
 		return 1
 	}
-
+	
+	var cCompilers map[string]string
+	if flagCgo {
+		cCompilers = cCrossCompilerFlag.Get()
+		for _, compiler := range cCompilers {
+			if _, err := exec.LookPath(compiler); err != nil {
+				fmt.Fprintf(os.Stderr, "C compiler %s must be on the PATH\n",
+					compiler)
+				return 1
+			}
+		}
+	}
+	
+	
 	// Assume -mod is supported when no version prefix is found
 	if modMode != "" && strings.HasPrefix(versionStr, "go") {
 		// go-version only cares about version numbers
